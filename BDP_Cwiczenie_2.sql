@@ -1,6 +1,6 @@
-CREATE DATABASE turniej;
-
 -- Cwiczenie 0
+
+CREATE DATABASE turniej;
 
 CREATE TABLE mecze (
   id int,
@@ -55,11 +55,16 @@ WHERE player LIKE 'Mario%';
 
 -- Cwiczenie 5
 
-
+SELECT player, teamid, coach, gtime FROM druzyny d
+INNER JOIN gole g on d.id = g.teamid
+WHERE g.gtime <= 10;
 
 -- Cwiczenie 6
 
-
+SELECT teamname, mdate FROM druzyny d
+INNER JOIN gole g ON d.id = g.teamid
+INNER JOIN mecze m ON m.id = g.matchid
+WHERE coach = 'Franciszek Smuda';
 
 -- Cwiczenie 7
 
@@ -68,13 +73,21 @@ WHERE stadium = 'National Stadium, Warsaw';
 
 -- Cwiczenie 8
 
-
+SELECT player FROM mecze m
+JOIN gole g ON matchid = id  
+INNER JOIN druzyny d ON g.teamid = d.id 
+WHERE (team1 = 'GER' OR team2 = 'GER') AND teamid != 'GER';
 
 -- Cwiczenie 9
 
-
+SELECT teamname, COUNT(gtime) AS liczba_goli FROM gole g 
+INNER JOIN druzyny d ON g.teamid = d.id 
+GROUP BY teamname ORDER BY liczba_goli DESC; 
 
 -- Cwiczenie 10
 
-
+SELECT stadium, COUNT(matchid) AS liczba_goli FROM gole g 
+INNER JOIN druzyny d ON g.teamid = d.id 
+INNER JOIN mecze m ON m.id = g.matchid
+GROUP BY stadium ORDER BY liczba_goli DESC;
 
